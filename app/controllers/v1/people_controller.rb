@@ -23,13 +23,13 @@ module V1
     # PUT /people/:id
     def update
       @person.update(permitted_params)
-      head :no_content
+      render json: @person, status: :ok
     end
 
     # DELETE /people/:id
     def destroy
       @person.destroy
-      head :no_content
+      render json: { message: 'The person has been destroyed' }, status: :ok
     end
 
     private

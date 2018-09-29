@@ -23,13 +23,13 @@ module V1
     # PUT /movies/:id
     def update
       @movie.update(permitted_params)
-      head :no_content
+      render json: @movie, status: :ok
     end
 
     # DELETE /movies/:id
     def destroy
       @movie.destroy
-      head :no_content
+      render json: { message: 'The movie has been destroyed' }, status: :ok
     end
 
     private
