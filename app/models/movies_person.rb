@@ -13,4 +13,10 @@
 class MoviesPerson < ApplicationRecord
 	as_enum :type, actor: 0, director: 1, producer: 2
 	validates :type_cd, :movie_id, :person_id, presence: true
+
+	def as_json(options)
+    super(only: [ :id, :movie_id, :person_id ],
+    			methods: [ :type ]
+    		 )
+  end
 end
