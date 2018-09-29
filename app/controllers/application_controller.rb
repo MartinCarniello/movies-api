@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::API
-	rescue_from ActiveRecord::RecordNotFound do |e|
-    json_response({ message: e.message }, :not_found)
-  end
+	include ExceptionHandler
 
-  rescue_from ActiveRecord::RecordInvalid do |e|
-    json_response({ message: e.message }, :unprocessable_entity)
+  # called before every action on controllers
+  before_action :authorize_request
+	attr_reader :current_user
+
+	private
+
+  # Check for valid request token and return user
+  def authorize_request
+    @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
   end
 end

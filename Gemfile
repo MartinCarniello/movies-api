@@ -30,6 +30,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'simple_enum'
 
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+
+# JWT
+gem 'jwt'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug'

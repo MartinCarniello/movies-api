@@ -11,11 +11,16 @@
 #
 
 class Person < ApplicationRecord
+
+	# Associations
 	has_and_belongs_to_many :performances, -> { where('movies_people.type_cd = ?', MoviesPerson.types[:actor]) }, class_name: 'Movie', join_table: "movies_people"
 	has_and_belongs_to_many :directions, -> { where('movies_people.type_cd = ?', MoviesPerson.types[:director]) }, class_name: 'Movie', join_table: "movies_people"
 	has_and_belongs_to_many :productions, -> { where('movies_people.type_cd = ?', MoviesPerson.types[:producer]) }, class_name: 'Movie', join_table: "movies_people"
+
+	# Validations
 	validates :last_name, :first_name, :aliases, presence: true
 
+	# Methods
 	def as_json(options)
     super(only: [ :id, :last_name, :first_name, :aliases ], 
     			include: { 

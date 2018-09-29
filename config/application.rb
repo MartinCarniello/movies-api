@@ -34,5 +34,7 @@ module MoviesApi
 
     config.autoload_paths << Rails.root.join("lib")
     config.eager_load_paths << Rails.root.join("lib")
+
+    config.read_encrypted_secrets = true
   end
 end
