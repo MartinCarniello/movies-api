@@ -12,6 +12,9 @@
 
 class MoviesPerson < ApplicationRecord
 
+	belongs_to :movie
+	belongs_to :person
+
 	# Type Enum
 	as_enum :type, actor: 0, director: 1, producer: 2
 
@@ -21,7 +24,11 @@ class MoviesPerson < ApplicationRecord
 	# Methods
 	def as_json(options)
     super(only: [ :id, :movie_id, :person_id ],
-    			methods: [ :type ]
+    			methods: [ :type ],
+    			include: { 
+    				movie: { only: [ :id, :title, :release_year ] },
+    				person: { only: [ :id, :last_name, :first_name, :aliases ] }
+    			}
     		 )
   end
 end

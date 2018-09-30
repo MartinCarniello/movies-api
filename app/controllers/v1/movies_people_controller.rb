@@ -5,7 +5,7 @@ module V1
 
   	# GET /movies_people
     def index
-      @movies_people = MoviesPerson.all
+      @movies_people = MoviesPerson.includes(:movie, :person).all
       render json: @movies_people, status: :ok
     end
 
@@ -35,7 +35,7 @@ module V1
     private
 
     def set_movie_person
-      @movie_person = MoviesPerson.find(params[:id])
+      @movie_person = MoviesPerson.includes(:movie, :person).find(params[:id])
     end
 
     def permitted_params
